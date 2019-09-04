@@ -1,0 +1,42 @@
+
+  affaires:any[];
+  affaire: Affaire = new Affaire();
+  myForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private affaireService: AffaireService, private router: Router) { }
+
+  ngOnInit() {
+    this.loadAffaire();
+    this.myForm = this.formBuilder.group(
+      {
+        idAForm: ['', Validators.required],
+        statutAForm: ['', Validators.required],
+        titreAForm: ['', Validators.required],
+        refAForm: ['', Validators.required]
+      }
+    )
+ 
+  }
+
+  locadUser() {
+    this.affaireService.getAllAffaire().subscribe(
+      data => {this.affaires = data;},
+      error => {console.log(error);}
+    )
+  }
+
+  delUser(user) {
+    this.affaireService.deleteAffaire(affaire.idAffaire).subscribe(
+      () => {this.loadAffaire();},
+      error => {console.log(error);}
+    )
+  }
+
+  createAffaire() {
+    this.affaireService.saveAffaire(this.affaire).subscribe(
+      () => {this.locadAffaire(); this.affaire = new Affaire();}
+    )
+  }
+
+
+}

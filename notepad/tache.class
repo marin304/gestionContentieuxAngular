@@ -1,0 +1,5 @@
+idTache : number;
+dateCreation : Date;
+titre:string;
+description:string;
+statutAudience:number;

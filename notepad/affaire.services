@@ -1,0 +1,43 @@
+
+
+  constructor(private httpClient: HttpClient) { }
+  /*users = [
+    {
+      nom: 'Crispim',
+      prenom: 'Vitor',
+      statut: 'Activé'
+    },
+
+    {
+      nom: 'Shanmu',
+      prenom: 'Sanjiev',
+      statut: 'Desactivé'
+    }
+  ];-->
+
+  activerUser() {
+    for(let user of this.users) {
+      user.statut = "Activé";
+    }
+  }
+
+  desactiverUser() {
+    for(let user of this.users) {
+      user.statut = "Desactivé";
+    }
+  }*/
+  public getAllAffaire(): Observable<any> {
+    return this.httpClient.get('http://localhost:9090/affaires').map(response => response);
+  }
+  public getAffaire(id: number): Observable<any> {
+    return this.httpClient.get('http://localhost:9090/affaires/' + idAffaire);
+  }
+  
+  public saveAffaire(affaire: any): Observable<any> {
+    return this.httpClient.post('http://localhost:9090/affaires/', affaire);
+
+  public getAffaire(affaire: any): Observable<any> {
+    var affaireParse = JSON.parse(affaire);
+    return this.httpClient.get('http://localhost:9090/affaires/cases/statut/{status}' + affaireParse.status, affaireParse);
+  }
+}

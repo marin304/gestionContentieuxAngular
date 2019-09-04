@@ -1,0 +1,34 @@
+import { Component, OnInit } from '@angular/core';
+import { Tache } from 'app/model/tache';
+import { TacheService } from 'app/service/tache.service';
+import { AppService } from 'app/app.service';
+
+@Component({
+  selector: 'app-tache',
+  templateUrl: './tache.component.html',
+  styleUrls: ['./tache.component.css']
+})
+export class Tachecomponent implements OnInit {
+  taches:any[];
+  tache: Tache = new Tache();
+  constructor(private appService:AppService, private tacheService: TacheService) { }
+  authenticated(){
+    return this.appService.authenticated;
+  }
+
+  ngOnInit() {
+    this.loadTache();
+  }
+  loadTache() {
+    this.tacheService.getAll().subscribe(
+      data => {this.taches = data;},
+      error => {console.log(error);}
+    )
+  }
+  createTache() {
+    this.tacheService.saveTache(this.tache).subscribe(
+      () => {this.loadTache(); this.tache = new Tache
+	  (); }
+    )
+  }
+}
